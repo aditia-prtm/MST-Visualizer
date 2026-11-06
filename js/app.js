@@ -291,6 +291,30 @@ window.App = {
     // Tombol di ringkasan / header visualizer
     const btnReplayNew = document.getElementById('btn-replay-new');
     const btnReplayOther = document.getElementById('btn-replay-other');
+    const btnCopySummary = document.getElementById('btn-copy-summary');
+
+    if (btnCopySummary) {
+      btnCopySummary.addEventListener('click', () => {
+        const result = this.currentAlgorithmResult;
+        const graph = window.GraphEditorModule.graph;
+        if (!result || !result.mstEdges) return;
+
+        const algoName = this.selectedAlgorithm === 'kruskal' ? 'Kruskal' : 'Prim';
+        const edgesStr = result.mstEdges.map(e => {
+          const uLabel = window.GraphModule.getNodeLabel(graph, e.u);
+          const vLabel = window.GraphModule.getNodeLabel(graph, e.v);
+          return `(${uLabel} - ${vLabel}, bobot: ${e.w})`;
+        }).join(', ');
+
+        const textToCopy = `Hasil MST (${algoName}):\nTotal Bobot: ${result.totalWeight}\nSisi MST (${result.mstEdges.length} sisi): ${edgesStr}`;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          window.GraphEditorModule.showToast('Hasil MST berhasil disalin ke clipboard!', 'success');
+        }).catch(() => {
+          window.GraphEditorModule.showToast('Gagal menyalin ke clipboard.', 'warning');
+        });
+      });
+    }
 
     if (btnReplayNew) {
       btnReplayNew.addEventListener('click', () => this.goTo('input'));
