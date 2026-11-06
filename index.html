@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualisasi Minimum Spanning Tree (MST) | Struktur Diskrit</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="6" cy="6" r="3"></circle>
+          <circle cx="18" cy="6" r="3"></circle>
+          <circle cx="12" cy="18" r="3"></circle>
+          <line x1="8.5" y1="7.5" x2="10.5" y2="15.5"></line>
+          <line x1="15.5" y1="7.5" x2="13.5" y2="15.5"></line>
+          <line x1="9" y1="6" x2="15" y2="6"></line>
+        </svg>
+        <span>MST Visualizer</span>
+        <span class="logo-badge">Struktur Diskrit</span>
+      </a>
+
+      <nav>
+        <a href="app.html" class="btn btn-primary btn-sm">Buka Aplikasi &rarr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="landing-hero">
+      <div class="hero-pill">
+        <span>✨ Tugas Besar &amp; Project Kelompok Matematika / Struktur Diskrit</span>
+      </div>
+      <h1 class="hero-title">Visualisasi Interaktif Minimum Spanning Tree</h1>
+      <p class="hero-description">
+        Pelajari bagaimana algoritma <strong>Kruskal</strong> dan <strong>Prim</strong> menemukan pohon merentang minimum (MST) pada graf terhubung berbobot, langkah demi langkah dengan animasi interaktif.
+      </p>
+      <div class="hero-cta">
+        <a href="app.html" class="btn btn-primary btn-lg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Mulai Visualisasi Sekarang
+        </a>
+        <a href="#penjelasan" class="btn btn-secondary btn-lg">Pelajari Konsep MST</a>
+      </div>
+    </section>
+
+    <!-- Konsep Dasar MST -->
+    <section id="penjelasan" class="section-container">
+      <div class="section-header">
+        <h2>Apa itu Minimum Spanning Tree (MST)?</h2>
+        <p>Pohon Merentang Minimum adalah subgraf penting dalam teori graf dengan aplikasi luas di dunia nyata.</p>
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            </svg>
+          </div>
+          <h3>Menghubungkan Semua Node</h3>
+          <p>
+            Spanning Tree mencakup setiap simpul (<em>vertex</em>) pada graf tanpa ada yang terisolasi. Jika graf memiliki <strong>V</strong> simpul, maka pohon memiliki tepat <strong>V - 1</strong> sisi (<em>edge</em>).
+          </p>
+        </div>
+
+        <div class="concept-card">
+          <div class="concept-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+            </svg>
+          </div>
+          <h3>Bebas Siklus (Acyclic)</h3>
+          <p>
+            Sesuai definisi pohon, tidak boleh ada lintasan tertutup atau siklus. Menambahkan satu sisi tambahan pada spanning tree pasti akan menciptakan siklus.
+          </p>
+        </div>
+
+        <div class="concept-card">
+          <div class="concept-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3>Total Bobot Minimum</h3>
+          <p>
+            Di antara semua kemungkinan spanning tree yang dapat dibentuk, MST adalah pohon dengan <strong>jumlah total bobot sisi terkecil</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Algoritma yang Tersedia -->
+      <div class="section-header">
+        <h2>Dua Algoritma Greedy Utama</h2>
+        <p>Pilih algoritma yang ingin Anda amati dan bandingkan perilakunya secara langsung.</p>
+      </div>
+
+      <div class="algo-comparison-grid">
+        <!-- Kartu Kruskal -->
+        <div class="comparison-card card-kruskal">
+          <div class="comparison-header">
+            <h3>Algoritma Kruskal</h3>
+            <span class="comparison-tag">Edge-Based</span>
+          </div>
+          <p class="text-muted">
+            Bekerja dengan memproses sisi-sisi graf secara mandiri berdasarkan bobot dari yang teringan ke terberat.
+          </p>
+          <ul class="step-flow-list">
+            <li>Urutkan seluruh edge naik berdasarkan bobot (ascending).</li>
+            <li>Pilih edge teringan satu per satu.</li>
+            <li>Gunakan <strong>Disjoint-Set (Union-Find)</strong> untuk mendeteksi siklus.</li>
+            <li>Jika edge membentuk siklus, tolak; jika tidak, masukkan ke MST.</li>
+            <li>Berhenti ketika sudah terkumpul <em>(V - 1)</em> edge.</li>
+          </ul>
+          <div class="meta-box">
+            <span>Struktur Data: Union-Find</span>
+            <span>Kompleksitas: O(E log E)</span>
+          </div>
+        </div>
+
+        <!-- Kartu Prim -->
+        <div class="comparison-card card-prim">
+          <div class="comparison-header">
+            <h3>Algoritma Prim</h3>
+            <span class="comparison-tag">Vertex-Based</span>
+          </div>
+          <p class="text-muted">
+            Bekerja dengan menumbuhkan pohon secara bertahap mulai dari satu simpul awal pilihan.
+          </p>
+          <ul class="step-flow-list">
+            <li>Pilih satu node awal dan masukkan ke dalam himpunan MST (<em>Visited</em>).</li>
+            <li>Periksa seluruh edge penghubung antara node di dalam himpunan dan di luar himpunan.</li>
+            <li>Pilih edge dengan bobot terkecil di antara edge penghubung tersebut.</li>
+            <li>Tambahkan edge dan node baru tersebut ke himpunan MST.</li>
+            <li>Ulangi hingga seluruh simpul terhubung.</li>
+          </ul>
+          <div class="meta-box">
+            <span>Struktur Data: Priority Queue / Set</span>
+            <span>Kompleksitas: O(E log V)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action Banner -->
+      <div style="text-align: center; margin-top: 4rem;">
+        <a href="app.html" class="btn btn-primary btn-lg">
+          Buka Kanvas Graf &amp; Coba Sekarang &rarr;
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Proyek Kelompok Mata Kuliah Struktur Diskrit &bull; Visualisasi Minimum Spanning Tree</p>
+  </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,270 @@
+/* ==========================================================================
+   LANDING.CSS
+   Styling untuk Landing Page (index.html).
+   Hero section, kartu edukatif konsep MST, dan perbandingan algoritma.
+   ========================================================================== */
+
+.landing-hero {
+  text-align: center;
+  padding: 4.5rem 1.5rem 3.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  color: #a5b4fc;
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Bagian Konten Edukatif */
+.section-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  margin-bottom: 0.75rem;
+}
+
+.section-header p {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Grid Penjelasan Konsep MST */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.concept-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.concept-card:hover {
+  transform: translateY(-4px);
+  border-color: #475569;
+}
+
+.concept-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.concept-card h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+/* Perbandingan Algoritma Kruskal vs Prim */
+.algo-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .algo-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.comparison-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.comparison-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.card-kruskal::before {
+  background: linear-gradient(90deg, #6366f1, #06b6d4);
+}
+
+.card-prim::before {
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+}
+
+.comparison-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.comparison-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-dim);
+}
+
+.step-flow-list {
+  list-style: none;
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.step-flow-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.step-flow-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-accept);
+  font-weight: 700;
+}
+
+.meta-box {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  color: #38bdf8;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Responsivitas Layar Kecil (Mobile) */
+@media (max-width: 640px) {
+  .landing-hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .hero-pill {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    line-height: 1.4;
+  }
+
+  .hero-title {
+    font-size: 1.95rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description {
+    font-size: 0.98rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .section-container {
+    padding: 2rem 1rem 3.5rem;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .concept-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .concept-card {
+    padding: 1.25rem;
+  }
+
+  .comparison-card {
+    padding: 1.25rem;
+  }
+
+  .meta-box {
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+  }
+}
+

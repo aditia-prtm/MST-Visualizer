@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Visualisasi MST | Struktur Diskrit</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="6" cy="6" r="3"></circle>
+          <circle cx="18" cy="6" r="3"></circle>
+          <circle cx="12" cy="18" r="3"></circle>
+          <line x1="8.5" y1="7.5" x2="10.5" y2="15.5"></line>
+          <line x1="15.5" y1="7.5" x2="13.5" y2="15.5"></line>
+          <line x1="9" y1="6" x2="15" y2="6"></line>
+        </svg>
+        <span>MST Visualizer</span>
+        <span class="logo-badge">Struktur Diskrit</span>
+      </a>
+
+      <nav>
+        <a href="index.html" class="btn btn-outline btn-sm">&larr; Kembali ke Landing Page</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-container">
+
+    <!-- Stepper Navigation -->
+    <nav class="stepper-nav" aria-label="Progress Tahapan">
+      <div id="step-pill-input" class="step-pill active">
+        <span class="step-num">1</span>
+        <span>Input Graf</span>
+      </div>
+      <div class="step-divider"></div>
+      <div id="step-pill-pick" class="step-pill">
+        <span class="step-num">2</span>
+        <span>Pilih Algoritma</span>
+      </div>
+      <div class="step-divider"></div>
+      <div id="step-pill-visualize" class="step-pill">
+        <span class="step-num">3</span>
+        <span>Visualisasi</span>
+      </div>
+    </nav>
+
+    <!-- ======================================================================
+         TAHAP 1: INPUT GRAF (STAGE INPUT)
+         ====================================================================== -->
+    <section id="stage-input">
+      <!-- Pesan Peringatan Validasi -->
+      <div id="editor-validation-alert" class="validation-alert" role="alert"></div>
+
+      <div class="editor-layout">
+        <!-- Area Kanvas Utama -->
+        <div class="canvas-card">
+          <!-- Toolbar Editor -->
+          <div class="canvas-toolbar">
+            <div class="toolbar-group">
+              <span class="text-dim text-sm" style="font-weight: 600;">Mode:</span>
+              <div class="mode-btn-group">
+                <button type="button" id="btn-mode-add" class="mode-btn active" title="Tambah Node &amp; Hubungkan Edge">
+                  + Hubungkan Node
+                </button>
+                <button type="button" id="btn-mode-delete" class="mode-btn" title="Klik node atau edge untuk menghapus">
+                  &times; Hapus Elemen
+                </button>
+              </div>
+            </div>
+
+            <div class="toolbar-group">
+              <button type="button" id="btn-sample-graph" class="btn btn-secondary btn-sm" title="Muat Graf Contoh Buku Teks">
+                Contoh Graf
+              </button>
+              <button type="button" id="btn-random-graph" class="btn btn-secondary btn-sm" title="Hasilkan Graf Acak Terhubung">
+                Acak Graf
+              </button>
+              <button type="button" id="btn-clear-graph" class="btn btn-danger btn-sm" title="Kosongkan Semua Node &amp; Edge">
+                Hapus Semua
+              </button>
+            </div>
+          </div>
+
+          <!-- Kanvas SVG Interaktif -->
+          <svg id="editor-svg" class="graph-svg" viewBox="0 0 800 480" width="100%" height="480"></svg>
+
+          <!-- Footer Kanvas -->
+          <div class="canvas-footer">
+            <span>💡 <em>Klik kanvas untuk node baru. Klik 2 node berurutan untuk membuat edge. Tarik node untuk memindahkannya.</em></span>
+            <span id="graph-stats-badge" class="badge badge-idle">0 Node, 0 Edge</span>
+          </div>
+        </div>
+
+        <!-- Sidebar Kontrol & Input Teks -->
+        <aside class="editor-sidebar">
+          <div class="guide-box">
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              Petunjuk Interaksi
+            </h4>
+            <ul>
+              <li><strong>Tambah Node:</strong> Klik area kosong kanvas SVG.</li>
+              <li><strong>Buat Edge:</strong> Klik node pertama, lalu klik node kedua. Masukkan bobot angka positif.</li>
+              <li><strong>Geser Node:</strong> Tahan dan seret (drag) lingkaran node.</li>
+              <li><strong>Hapus:</strong> Aktifkan mode "Hapus Elemen", lalu klik node atau edge yang ingin dihapus.</li>
+            </ul>
+          </div>
+
+          <!-- Input Alternatif Textarea -->
+          <div class="card textarea-box">
+            <h4 style="margin-bottom: 0.5rem; font-size: 0.95rem;">Alternatif: Input Format Teks</h4>
+            <p style="font-size: 0.8rem; margin-bottom: 0.5rem; color: var(--text-dim);">
+              Satu edge per baris: <code>NodeA NodeB Bobot</code>
+            </p>
+            <textarea id="graph-textarea" placeholder="A B 4&#10;A D 2&#10;B C 6" spellcheck="false"></textarea>
+            <button type="button" id="btn-apply-text" class="btn btn-secondary btn-sm" style="width: 100%;">
+              Terapkan dari Teks
+            </button>
+          </div>
+
+          <!-- Tombol Lanjut ke Tahap 2 -->
+          <button type="button" id="btn-goto-pick" class="btn btn-primary btn-lg" style="width: 100%;">
+            Lanjut ke Pilih Algoritma &rarr;
+          </button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAHAP 2: PILIH ALGORITMA (STAGE PICK)
+         ====================================================================== -->
+    <section id="stage-pick" style="display: none;">
+      <div class="algo-selection-container">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <h2>Pilih Algoritma Minimum Spanning Tree</h2>
+          <p>Tentukan algoritma greedy yang ingin Anda visualisasikan pada graf yang telah dibuat.</p>
+        </div>
+
+        <div class="algo-cards-grid">
+          <!-- Kartu Kruskal -->
+          <div id="card-algo-kruskal" class="algo-card selected">
+            <div class="algo-card-header">
+              <h3>Algoritma Kruskal</h3>
+              <span class="algo-badge">Edge-Centric</span>
+            </div>
+            <p class="algo-description">
+              Mengurutkan seluruh sisi graf berdasarkan bobot secara menaik. Memeriksa setiap sisi satu per satu dan menolak sisi yang menyebabkan siklus menggunakan struktur data <strong>Union-Find (Disjoint Set)</strong>.
+            </p>
+            <div class="algo-meta">
+              <span>Pendekatan: Global Greedy</span>
+              <span>Deteksi Siklus: Union-Find</span>
+            </div>
+          </div>
+
+          <!-- Kartu Prim -->
+          <div id="card-algo-prim" class="algo-card">
+            <div class="algo-card-header">
+              <h3>Algoritma Prim</h3>
+              <span class="algo-badge">Vertex-Centric</span>
+            </div>
+            <p class="algo-description">
+              Dimulai dari sebuah simpul awal tertentu, kemudian menumbuhkan pohon secara bertahap dengan selalu memilih sisi berbobot terkecil yang menghubungkan pohon ke simpul luar yang belum terhubung.
+            </p>
+            <div class="algo-meta">
+              <span>Pendekatan: Local Greedy</span>
+              <span>Memerlukan Node Awal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opsi Pemilihan Node Awal untuk Prim -->
+        <div id="prim-options-container" class="prim-options" style="display: none;">
+          <div>
+            <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Pilih Simpul Awal (Start Node):</h4>
+            <p style="font-size: 0.85rem; color: var(--text-dim);">
+              Algoritma Prim akan mulai menumbuhkan pohon MST dari simpul ini.
+            </p>
+          </div>
+          <select id="prim-start-node-select"></select>
+        </div>
+
+        <!-- Navigasi Tahap 2 -->
+        <div class="pick-actions">
+          <button type="button" id="btn-back-to-input" class="btn btn-outline btn-lg">
+            &larr; Kembali ke Edit Graf
+          </button>
+          <button type="button" id="btn-start-visualize" class="btn btn-primary btn-lg">
+            Mulai Visualisasi &rarr;
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAHAP 3: VISUALISASI LANGKAH DEMI LANGKAH (STAGE VISUALIZE)
+         ====================================================================== -->
+    <section id="stage-visualize" style="display: none;">
+      <div class="visualize-layout">
+        
+        <!-- Bagian Utama Visualisasi -->
+        <div class="visualize-main">
+          <!-- Header Visualizer: Algoritma & Total Bobot -->
+          <div class="viz-header-card">
+            <div>
+              <span class="text-dim text-sm" style="text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Sedang Dijalankan</span>
+              <h3 id="viz-algo-title" style="color: #ffffff; margin-top: 0.2rem;">Algoritma Kruskal</h3>
+            </div>
+            <div class="total-weight-display">
+              <span class="total-weight-label">Total Bobot MST:</span>
+              <span id="step-total-weight" class="total-weight-val">0</span>
+            </div>
+          </div>
+
+          <!-- Kanvas SVG Graf Read-Only -->
+          <div class="canvas-card">
+            <svg id="visualizer-svg" class="graph-svg" viewBox="0 0 800 480" width="100%" height="480"></svg>
+          </div>
+
+          <!-- Player Controls Bar -->
+          <div class="controls-card">
+            <div class="control-buttons">
+              <button type="button" id="btn-reset" class="btn btn-secondary btn-sm" title="Kembali ke kondisi awal">
+                Reset
+              </button>
+              <button type="button" id="btn-prev" class="btn btn-secondary btn-sm" title="Langkah Sebelumnya">
+                &larr; Prev
+              </button>
+              <button type="button" id="btn-play" class="btn btn-primary btn-sm" style="min-width: 90px;" title="Putar Otomatis">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                Play
+              </button>
+              <button type="button" id="btn-next" class="btn btn-secondary btn-sm" title="Langkah Berikutnya">
+                Next &rarr;
+              </button>
+            </div>
+
+            <!-- Counter Langkah -->
+            <div class="step-counter-box" title="Posisi Langkah Saat Ini">
+              <span id="step-counter">0 / 0</span>
+            </div>
+
+            <!-- Slider Kecepatan Autoplay -->
+            <div class="speed-control">
+              <span>Kecepatan:</span>
+              <input type="range" id="speed-slider" min="300" max="2500" step="100" value="1000" title="Atur kecepatan jeda autoplay">
+              <span id="speed-label" class="font-mono text-sm font-bold">1.0s</span>
+            </div>
+          </div>
+
+          <!-- Panel Keterangan Langkah Saat Ini -->
+          <div class="step-note-card">
+            <div class="step-note-header">
+              <span class="step-note-title">Keterangan Langkah Saat Ini:</span>
+              <span id="step-status-badge" class="badge badge-idle">Belum Mulai</span>
+            </div>
+            <p id="step-note-text" class="step-note-text">
+              Klik tombol Play atau Next untuk memulai visualisasi.
+            </p>
+          </div>
+
+          <!-- Legenda Warna Graf -->
+          <div class="legend-card">
+            <div class="legend-item">
+              <span class="legend-color-dot dot-idle"></span>
+              <span>Abu-abu: Belum Diproses</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color-dot dot-check"></span>
+              <span>Kuning: Sedang Diperiksa</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color-dot dot-accept"></span>
+              <span>Hijau: Diterima Masuk MST</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color-dot dot-reject"></span>
+              <span>Merah Putus-putus: Ditolak (Siklus)</span>
+            </div>
+          </div>
+
+          <!-- Ringkasan Selesai (Muncul di langkah terakhir) -->
+          <div id="completion-summary-card" class="completion-summary-card">
+            <h3 style="color: #ffffff; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--color-accept);">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              Pohon Merentang Minimum (MST) Berhasil Ditemukan!
+            </h3>
+            <p class="text-muted" style="margin-bottom: 0.75rem;">
+              Seluruh node telah terhubung dengan total bobot minimum sebesar <strong id="summary-total-weight" style="color: var(--color-accept); font-size: 1.25rem;">0</strong>.
+            </p>
+            <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.35rem;">
+              Daftar Sisi (Edge) Pembentuk MST:
+            </div>
+            <div id="summary-mst-edges" class="summary-edges-list"></div>
+
+            <div class="summary-actions">
+              <button type="button" id="btn-replay-other" class="btn btn-primary">
+                Coba Algoritma Lain (Graf Sama) &rarr;
+              </button>
+              <button type="button" id="btn-replay-new" class="btn btn-secondary">
+                Ulangi dengan Graf Baru
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Visualizer (Panel Khusus Kruskal / Prim) -->
+        <aside class="visualize-sidebar">
+          
+          <!-- Panel Khusus Kruskal: Tabel Urutan Edge -->
+          <div id="kruskal-edge-list-panel" class="side-panel-card">
+            <h4 class="side-panel-title">
+              <span>Urutan Edge (Kruskal)</span>
+              <span class="badge badge-idle">Ascending</span>
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.75rem;">
+              Edge diproses urut dari bobot terkecil ke terbesar.
+            </p>
+            <table class="kruskal-table">
+              <thead>
+                <tr>
+                  <th style="width: 28px;">#</th>
+                  <th>Edge</th>
+                  <th style="text-align: center;">Bobot</th>
+                  <th style="text-align: center;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="kruskal-table-body"></tbody>
+            </table>
+          </div>
+
+          <!-- Panel Khusus Prim: Himpunan Node Visited -->
+          <div id="prim-visited-panel" class="side-panel-card" style="display: none;">
+            <h4 class="side-panel-title">
+              <span>Himpunan Node MST (Visited)</span>
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.75rem;">
+              Node yang saat ini sudah tergabung ke dalam pohon MST:
+            </p>
+            <div id="prim-visited-chips" class="prim-chips-container"></div>
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); font-size: 0.82rem; color: var(--text-muted);">
+              Di setiap langkah, algoritma mencari edge terpendek yang memotong dari himpunan ini ke node yang belum dikunjungi.
+            </div>
+          </div>
+
+          <!-- Navigasi Cepat Balik -->
+          <div class="card" style="padding: 1rem;">
+            <button type="button" onclick="window.App.goTo('pick')" class="btn btn-outline btn-sm" style="width: 100%; margin-bottom: 0.5rem;">
+              &larr; Pilih Algoritma Lain
+            </button>
+            <button type="button" onclick="window.App.goTo('input')" class="btn btn-outline btn-sm" style="width: 100%;">
+              &larr; Kembali ke Edit Graf
+            </button>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Dialog Input Bobot Edge -->
+  <div id="weight-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 id="weight-modal-title" style="margin-bottom: 0.5rem; font-size: 1.15rem;">Beri Bobot Edge</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        Masukkan bobot sisi (angka positif).
+      </p>
+      <input type="number" id="edge-weight-input" class="modal-input" min="1" step="any" value="4">
+      <div class="modal-actions">
+        <button type="button" id="btn-cancel-weight" class="btn btn-secondary">Batal</button>
+        <button type="button" id="btn-confirm-weight" class="btn btn-primary">Simpan Bobot</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifikasi Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Proyek Kelompok Mata Kuliah Struktur Diskrit &bull; Visualisasi Minimum Spanning Tree</p>
+  </footer>
+
+  <!-- Script Aplikasi (Urutan Vanilla tanpa ES module) -->
+  <script src="js/graph.js"></script>
+  <script src="js/algorithms.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/graph-editor.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
+
