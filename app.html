@@ -13,7 +13,7 @@
   <header class="site-header">
     <div class="header-container">
       <a href="index.html" class="logo">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="6" cy="6" r="3"></circle>
           <circle cx="18" cy="6" r="3"></circle>
           <circle cx="12" cy="18" r="3"></circle>
@@ -26,7 +26,7 @@
       </a>
 
       <nav>
-        <a href="index.html" class="btn btn-outline btn-sm">&larr; Kembali ke Landing Page</a>
+        <a href="index.html" class="btn btn-outline btn-sm">Kembali ke Landing Page</a>
       </nav>
     </div>
   </header>
@@ -70,7 +70,7 @@
                   + Hubungkan Node
                 </button>
                 <button type="button" id="btn-mode-delete" class="mode-btn" title="Klik node atau edge untuk menghapus">
-                  &times; Hapus Elemen
+                  Hapus Elemen
                 </button>
               </div>
             </div>
@@ -93,7 +93,7 @@
 
           <!-- Footer Kanvas -->
           <div class="canvas-footer">
-            <span>💡 <em>Klik kanvas untuk node baru. Klik 2 node berurutan untuk membuat edge. Tarik node untuk memindahkannya.</em></span>
+            <span><em>Klik kanvas untuk node baru. Klik 2 node berurutan untuk membuat edge. Geser node untuk memindahkannya.</em></span>
             <span id="graph-stats-badge" class="badge badge-idle">0 Node, 0 Edge</span>
           </div>
         </div>
@@ -102,7 +102,7 @@
         <aside class="editor-sidebar">
           <div class="guide-box">
             <h4>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -112,7 +112,7 @@
             <ul>
               <li><strong>Tambah Node:</strong> Klik area kosong kanvas SVG.</li>
               <li><strong>Buat Edge:</strong> Klik node pertama, lalu klik node kedua. Masukkan bobot angka positif.</li>
-              <li><strong>Geser Node:</strong> Tahan dan seret (drag) lingkaran node.</li>
+              <li><strong>Geser Node:</strong> Tahan dan seret lingkaran node.</li>
               <li><strong>Hapus:</strong> Aktifkan mode "Hapus Elemen", lalu klik node atau edge yang ingin dihapus.</li>
             </ul>
           </div>
@@ -131,7 +131,7 @@
 
           <!-- Tombol Lanjut ke Tahap 2 -->
           <button type="button" id="btn-goto-pick" class="btn btn-primary btn-lg" style="width: 100%;">
-            Lanjut ke Pilih Algoritma &rarr;
+            Lanjut ke Pilih Algoritma
           </button>
         </aside>
       </div>
@@ -193,10 +193,10 @@
         <!-- Navigasi Tahap 2 -->
         <div class="pick-actions">
           <button type="button" id="btn-back-to-input" class="btn btn-outline btn-lg">
-            &larr; Kembali ke Edit Graf
+            Kembali ke Edit Graf
           </button>
           <button type="button" id="btn-start-visualize" class="btn btn-primary btn-lg">
-            Mulai Visualisasi &rarr;
+            Mulai Visualisasi
           </button>
         </div>
       </div>
@@ -234,16 +234,16 @@
                 Reset
               </button>
               <button type="button" id="btn-prev" class="btn btn-secondary btn-sm" title="Langkah Sebelumnya">
-                &larr; Prev
+                Prev
               </button>
               <button type="button" id="btn-play" class="btn btn-primary btn-sm" style="min-width: 90px;" title="Putar Otomatis">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
                 Play
               </button>
               <button type="button" id="btn-next" class="btn btn-secondary btn-sm" title="Langkah Berikutnya">
-                Next &rarr;
+                Next
               </button>
             </div>
 
@@ -263,7 +263,7 @@
           <!-- Panel Keterangan Langkah Saat Ini -->
           <div class="step-note-card">
             <div class="step-note-header">
-              <span class="step-note-title">Keterangan Langkah Saat Ini:</span>
+              <span class="step-note-title">Keterangan Langkah Saat Ini</span>
               <span id="step-status-badge" class="badge badge-idle">Belum Mulai</span>
             </div>
             <p id="step-note-text" class="step-note-text">
@@ -294,11 +294,11 @@
           <!-- Ringkasan Selesai (Muncul di langkah terakhir) -->
           <div id="completion-summary-card" class="completion-summary-card">
             <h3 style="color: #ffffff; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--color-accept);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--color-accept);" aria-hidden="true">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
-              Pohon Merentang Minimum (MST) Berhasil Ditemukan!
+              Pohon Merentang Minimum (MST) Berhasil Ditemukan
             </h3>
             <p class="text-muted" style="margin-bottom: 0.75rem;">
               Seluruh node telah terhubung dengan total bobot minimum sebesar <strong id="summary-total-weight" style="color: var(--color-accept); font-size: 1.25rem;">0</strong>.
@@ -310,10 +310,10 @@
 
             <div class="summary-actions">
               <button type="button" id="btn-copy-summary" class="btn btn-outline" title="Salin daftar edge dan total bobot ke clipboard">
-                📋 Salin Hasil MST
+                Salin Hasil MST
               </button>
               <button type="button" id="btn-replay-other" class="btn btn-primary">
-                Coba Algoritma Lain (Graf Sama) &rarr;
+                Coba Algoritma Lain (Graf Sama)
               </button>
               <button type="button" id="btn-replay-new" class="btn btn-secondary">
                 Ulangi dengan Graf Baru
@@ -365,10 +365,10 @@
           <!-- Navigasi Cepat Balik -->
           <div class="card" style="padding: 1rem;">
             <button type="button" onclick="window.App.goTo('pick')" class="btn btn-outline btn-sm" style="width: 100%; margin-bottom: 0.5rem;">
-              &larr; Pilih Algoritma Lain
+              Pilih Algoritma Lain
             </button>
             <button type="button" onclick="window.App.goTo('input')" class="btn btn-outline btn-sm" style="width: 100%;">
-              &larr; Kembali ke Edit Graf
+              Kembali ke Edit Graf
             </button>
           </div>
 
@@ -399,7 +399,7 @@
 
   <!-- Site Footer -->
   <footer class="site-footer">
-    <p>&copy; 2026 Proyek Kelompok Mata Kuliah Struktur Diskrit &bull; Visualisasi Minimum Spanning Tree</p>
+    <p>&copy; 2026 Proyek Kelompok Mata Kuliah Struktur Diskrit: Visualisasi Minimum Spanning Tree</p>
   </footer>
 
   <!-- Script Aplikasi (Urutan Vanilla tanpa ES module) -->
@@ -412,4 +412,3 @@
 
 </body>
 </html>
-

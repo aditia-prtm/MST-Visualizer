@@ -11,14 +11,14 @@ window.RendererModule = {
   config: {
     nodeRadius: 22,
     colors: {
-      idle: '#64748b',       // Abu-abu
-      check: '#f59e0b',      // Kuning
-      accept: '#10b981',     // Hijau
-      reject: '#ef4444',     // Merah
-      selected: '#38bdf8',   // Biru muda untuk seleksi di editor
-      nodeBg: '#1e293b',
+      idle: '#475569',       // Abu-abu netral
+      check: '#f59e0b',      // Kuning amber
+      accept: '#10b981',     // Hijau emerald
+      reject: '#ef4444',     // Merah crimson
+      selected: '#38bdf8',   // Biru penanda seleksi
+      nodeBg: '#13171f',
       nodeText: '#f8fafc',
-      weightBg: '#0f172a'
+      weightBg: '#090c10'
     }
   },
 
@@ -239,7 +239,6 @@ window.RendererModule = {
         halo.style.strokeWidth = '2';
         halo.style.strokeDasharray = isSelected ? '4,3' : 'none';
         halo.style.opacity = isSelected ? '0.9' : '0.6';
-        halo.style.animation = isSelected ? 'spin 10s linear infinite' : 'none';
         nodeGroup.appendChild(halo);
       }
 
