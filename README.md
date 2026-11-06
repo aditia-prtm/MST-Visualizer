@@ -4,7 +4,7 @@
 
 ---
 
-## 👥 Informasi Kelompok
+## Informasi Kelompok
 
 - **Mata Kuliah:** Struktur Diskrit 2
 - **Program Studi / Kelas:** Teknik Informatika Reguler B 2025
@@ -17,7 +17,7 @@
 
 ---
 
-## 💡 Tentang Proyek
+## Tentang Proyek
 
 Aplikasi ini dibangun untuk memberikan pemahaman visual intuitif tentang konsep *Pohon Merentang Minimum* (*Minimum Spanning Tree* / MST) pada graf terhubung berbobot. Pengguna dapat merancang graf sendiri atau menggunakan contoh bawaan, lalu mengamati secara langsung bagaimana kedua algoritma greedy (Kruskal dan Prim) memutuskan apakah suatu sisi diterima atau ditolak.
 
@@ -29,7 +29,7 @@ Aplikasi ini dibangun untuk memberikan pemahaman visual intuitif tentang konsep 
 
 ---
 
-## ✨ Fitur-Fitur Utama
+## Fitur-Fitur Utama
 
 ### 1. Landing Page (`index.html`)
 - Penjelasan konsep dasar graf, pohon, dan sifat-sifat MST ($V - 1$ sisi, bebas siklus, bobot total minimum).
@@ -72,18 +72,18 @@ Aplikasi ini dibangun untuk memberikan pemahaman visual intuitif tentang konsep 
 
 ---
 
-## 🎨 Kode Warna Visualisasi
+## Kode Warna Visualisasi
 
 | Warna | Status Sisi / Node | Keterangan |
 |---|---|---|
-| ⚪ **Abu-abu** (`#64748b`) | Belum Diproses | Sisi masih berada dalam antrean pemrosesan |
-| 🟡 **Kuning** (`#f59e0b`) | Sedang Diperiksa | Sisi sedang diuji apakah membentuk siklus atau merupakan sisi potong terpendek |
-| 🟢 **Hijau** (`#10b981`) | Diterima Masuk MST | Sisi resmi menjadi bagian dari pohon merentang minimum |
-| 🔴 **Merah Putus-putus** (`#ef4444`) | Ditolak | Sisi ditolak karena menghubungkan dua node yang sudah terhubung (membentuk siklus) |
+| **Abu-abu** (`#64748b`) | Belum Diproses | Sisi masih berada dalam antrean pemrosesan |
+| **Kuning** (`#f59e0b`) | Sedang Diperiksa | Sisi sedang diuji apakah membentuk siklus atau merupakan sisi potong terpendek |
+| **Hijau** (`#10b981`) | Diterima Masuk MST | Sisi resmi menjadi bagian dari pohon merentang minimum |
+| **Merah Putus-putus** (`#ef4444`) | Ditolak | Sisi ditolak karena menghubungkan dua node yang sudah terhubung (membentuk siklus) |
 
 ---
 
-## 📂 Struktur File dan Folder
+## Struktur File dan Folder
 
 ```text
 mst-visualizer/
@@ -106,7 +106,7 @@ mst-visualizer/
 
 ---
 
-## 🚀 Cara Menjalankan
+## Cara Menjalankan
 
 1. Salin atau unduh seluruh folder proyek `mst-visualizer/`.
 2. Klik ganda file [**`index.html`**](index.html) atau [**`app.html`**](app.html) menggunakan peramban web modern apa pun:
@@ -118,7 +118,7 @@ mst-visualizer/
 
 ---
 
-## 🛠️ Panduan Modifikasi bagi Anggota Kelompok
+## Panduan Modifikasi bagi Anggota Kelompok
 
 Jika anggota kelompok ingin melakukan penyesuaian atau demonstrasi khusus:
 
@@ -133,7 +133,7 @@ Jika anggota kelompok ingin melakukan penyesuaian atau demonstrasi khusus:
 
 ---
 
-## 📚 Landasan Teori Singkat
+## Landasan Teori Singkat
 
 - **Minimum Spanning Tree (MST):** Subgraf dari graf tak berarah, berbobot, dan terhubung yang mencakup semua simpul dengan total bobot sisi seminimum mungkin tanpa memuat siklus.
 - **Teorema Jumlah Sisi:** Untuk sembarang graf pohon dengan $V$ buah simpul, jumlah sisi pada MST tepat sama dengan $V - 1$.

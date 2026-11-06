@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
+  <!-- Kanvas Partikel Interaktif Latar Belakang -->
+  <canvas id="bg-particles" class="bg-particles-canvas" aria-hidden="true"></canvas>
 
   <!-- Site Header -->
   <header class="site-header">
@@ -44,6 +46,78 @@
           Mulai Visualisasi
         </a>
         <a href="#penjelasan" class="btn btn-secondary btn-lg">Pelajari Konsep MST</a>
+      </div>
+    </section>
+
+    <!-- Section Anggota Kelompok -->
+    <section class="team-section">
+      <div class="section-header">
+        <p class="section-subtitle-tag">Tim Pengembang</p>
+        <h2>Anggota Kelompok</h2>
+        <p>Teknik Informatika Reguler B 2025 - Mata Kuliah Struktur Diskrit 2</p>
+      </div>
+
+      <!-- 4 Card Berdempet (Foto Setengah -> Hover Tampil Penuh + Nama & NIM) -->
+      <div class="team-strip" role="region" aria-label="Daftar Anggota Kelompok">
+        <!-- Anggota 1 -->
+        <article class="team-card" tabindex="0">
+          <div class="team-photo-wrap">
+            <img src="images/member-1.svg" alt="Foto Sabil Alaudin" class="team-photo" loading="lazy">
+            <span class="team-peek-badge">01</span>
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Sabil Alaudin</h3>
+            <div class="team-meta-row">
+              <span class="team-nim">09021282530121</span>
+              <span class="team-role">Algoritma MST</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Anggota 2 -->
+        <article class="team-card" tabindex="0">
+          <div class="team-photo-wrap">
+            <img src="images/member-2.svg" alt="Foto Muhammad Syehan Fahrezi Prashya" class="team-photo" loading="lazy">
+            <span class="team-peek-badge">02</span>
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Muhammad Syehan Fahrezi Prashya</h3>
+            <div class="team-meta-row">
+              <span class="team-nim">09021282530051</span>
+              <span class="team-role">Perancang Graf</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Anggota 3 -->
+        <article class="team-card" tabindex="0">
+          <div class="team-photo-wrap">
+            <img src="images/member-3.svg" alt="Foto Rafa Rasyad Anfero" class="team-photo" loading="lazy">
+            <span class="team-peek-badge">03</span>
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Rafa Rasyad Anfero</h3>
+            <div class="team-meta-row">
+              <span class="team-nim">09021282530057</span>
+              <span class="team-role">Interaktivitas State</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Anggota 4 -->
+        <article class="team-card" tabindex="0">
+          <div class="team-photo-wrap">
+            <img src="images/member-4.svg" alt="Foto M. Aditia Putra Pratama" class="team-photo" loading="lazy">
+            <span class="team-peek-badge">04</span>
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">M. Aditia Putra Pratama</h3>
+            <div class="team-meta-row">
+              <span class="team-nim">09021282530045</span>
+              <span class="team-role">Visualisasi &amp; UI</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -159,5 +233,7 @@
     <p>&copy; 2026 Proyek Kelompok Mata Kuliah Struktur Diskrit: Visualisasi Minimum Spanning Tree</p>
   </footer>
 
+  <!-- Script Partikel Latar Belakang -->
+  <script src="js/particles.js"></script>
 </body>
 </html>

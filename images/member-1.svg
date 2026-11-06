@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="100%" height="100%" preserveAspectRatio="xMinYMid slice">
+  <defs>
+    <linearGradient id="bg-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="skin-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d0b5"/>
+      <stop offset="100%" stop-color="#e2b998"/>
+    </linearGradient>
+    <linearGradient id="shirt-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Latar Belakang Bernuansa Graf -->
+  <rect width="400" height="500" fill="url(#bg-grad-1)"/>
+  
+  <g opacity="0.15" stroke="#38bdf8" stroke-width="1.5">
+    <circle cx="80" cy="90" r="16" fill="none"/>
+    <circle cx="320" cy="110" r="14" fill="none"/>
+    <circle cx="340" cy="380" r="20" fill="none"/>
+    <circle cx="60" cy="410" r="12" fill="none"/>
+    <line x1="80" y1="90" x2="320" y2="110"/>
+    <line x1="320" y1="110" x2="340" y2="380"/>
+  </g>
+
+  <!-- Tubuh & Pakaian -->
+  <path d="M70 500 L110 330 C130 300 270 300 290 330 L330 500 Z" fill="url(#shirt-1)"/>
+  <path d="M165 300 L200 370 L235 300 Z" fill="#1e40af"/>
+  <path d="M175 300 L200 345 L225 300 Z" fill="#ffffff" opacity="0.8"/>
+
+  <!-- Leher -->
+  <path d="M175 250 L175 315 C175 328 225 328 225 315 L225 250 Z" fill="#e2b998"/>
+
+  <!-- Kepala & Wajah -->
+  <ellipse cx="200" cy="210" rx="65" ry="78" fill="url(#skin-1)"/>
+
+  <!-- Rambut -->
+  <path d="M130 190 C125 130 170 115 200 115 C240 115 275 135 270 190 C260 175 250 160 200 160 C155 160 140 180 130 190 Z" fill="#1e2229"/>
+  <path d="M132 185 C132 170 145 135 185 125 C225 115 260 130 268 170 C245 145 205 145 165 155 Z" fill="#0f172a"/>
+
+  <!-- Telinga -->
+  <ellipse cx="134" cy="215" rx="10" ry="16" fill="#e2b998"/>
+  <ellipse cx="266" cy="215" rx="10" ry="16" fill="#e2b998"/>
+
+  <!-- Kacamata Modern -->
+  <rect x="145" y="195" width="44" height="28" rx="8" fill="none" stroke="#0ea5e9" stroke-width="3.5"/>
+  <rect x="211" y="195" width="44" height="28" rx="8" fill="none" stroke="#0ea5e9" stroke-width="3.5"/>
+  <line x1="189" y1="208" x2="211" y2="208" stroke="#0ea5e9" stroke-width="3.5"/>
+  <line x1="135" y1="206" x2="145" y2="206" stroke="#0ea5e9" stroke-width="2.5"/>
+  <line x1="255" y1="206" x2="265" y2="206" stroke="#0ea5e9" stroke-width="2.5"/>
+
+  <!-- Mata -->
+  <ellipse cx="167" cy="209" rx="5" ry="4" fill="#0f172a"/>
+  <ellipse cx="233" cy="209" rx="5" ry="4" fill="#0f172a"/>
+
+  <!-- Hidung & Senyum -->
+  <path d="M200 216 L196 232 L204 232" fill="none" stroke="#cb9875" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M185 248 C192 256 208 256 215 248" fill="none" stroke="#9a6042" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Badge Simbolis -->
+  <g transform="translate(20, 20)">
+    <rect width="42" height="26" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="21" y="17" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">01</text>
+  </g>
+</svg>
+
