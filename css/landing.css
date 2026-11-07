@@ -313,13 +313,19 @@ main,
   flex-direction: row !important;
   flex-wrap: nowrap !important;
   width: 100%;
-  height: 420px;
+  height: 530px; /* Tinggi proporsional di desktop agar wajah, leher, dan badan terlihat */
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
   margin-top: 1.5rem;
+}
+
+@media (min-height: 850px) and (min-width: 1025px) {
+  .team-strip {
+    height: 560px; /* Layar desktop tinggi: proporsi potret lebih leluasa */
+  }
 }
 
 .team-card {
@@ -441,11 +447,11 @@ main,
    INTERAKSI HOVER & ACTIVE (1 BARIS TETAP DI SELURUH RESOLUSI)
    ========================================================================== */
 
-/* Kartu yang sedang aktif/di-hover melebar mulus */
+/* Kartu yang sedang aktif/di-hover melebar mulus di desktop */
 .team-card:hover,
 .team-card:focus-within,
 .team-card.touch-active {
-  flex: 2.8 !important;
+  flex: 2.3 !important;
   z-index: 2;
   box-shadow: 0 0 0 1px var(--primary), var(--shadow-lg);
 }
@@ -453,7 +459,7 @@ main,
 /* Kartu lain yang tidak di-hover mengecil proporsional */
 .team-strip:hover .team-card:not(:hover):not(:focus-within):not(.touch-active),
 .team-strip.has-touch-active .team-card:not(.touch-active) {
-  flex: 0.55 !important;
+  flex: 0.65 !important;
   opacity: 0.75;
 }
 
@@ -464,7 +470,7 @@ main,
   width: 100%;
   filter: grayscale(0%) contrast(1) brightness(1);
   object-position: center top !important;
-  transform: scale(1.02);
+  transform: none; /* Hindari zoom-in agar baju dan postur tubuh terlihat proporsional */
 }
 
 .team-card:hover .team-peek-badge,
@@ -482,10 +488,17 @@ main,
   opacity: 1;
 }
 
+/* Penyesuaian Responsif Tablet & Layar Menengah */
+@media (max-width: 1024px) {
+  .team-strip {
+    height: 460px;
+  }
+}
+
 /* Penyesuaian Responsif Tablet & Mobile: TETAP 1 BARIS MUTLAK */
 @media (max-width: 768px) {
   .team-strip {
-    height: 360px;
+    height: 360px; /* Pertahankan tinggi yang sudah pas di mobile */
   }
 
   .team-card:hover,
