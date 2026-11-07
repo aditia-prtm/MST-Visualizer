@@ -26,9 +26,9 @@
         <span>MST Visualizer</span>
       </a>
 
-      <!-- Panel Kanan: Menu Navigasi + Tombol Simulasi -->
+      <!-- Panel Kanan: Menu Navigasi + Tombol Simulasi + Hamburger di Mobile -->
       <div class="nav-right-panel">
-        <nav class="site-nav" aria-label="Navigasi Halaman">
+        <nav class="site-nav desktop-nav" aria-label="Navigasi Halaman">
           <ul class="nav-menu">
             <li><a href="#hero" class="nav-item active">Beranda</a></li>
             <li><a href="#tim" class="nav-item">Kelompok</a></li>
@@ -40,9 +40,29 @@
         <div class="nav-btn-right">
           <a href="app.html" class="btn btn-primary btn-sm">Buka Simulasi</a>
         </div>
+
+        <!-- Tombol Burger Menu untuk Layar Mobile -->
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Backdrop Gelap di Bawah Drawer & di Bawah Navbar -->
+  <div class="mobile-nav-backdrop" id="mobile-backdrop"></div>
+
+  <!-- Drawer Menu Navigasi Mobile (Layer Berada Tepat di Bawah Navbar) -->
+  <nav class="mobile-nav-drawer" id="mobile-nav" aria-label="Navigasi Mobile">
+    <ul class="nav-menu-mobile">
+      <li><a href="#hero" class="mobile-nav-item active">Beranda</a></li>
+      <li><a href="#tim" class="mobile-nav-item">Kelompok</a></li>
+      <li><a href="#konsep" class="mobile-nav-item">Konsep MST</a></li>
+      <li><a href="#algoritma" class="mobile-nav-item">Algoritma</a></li>
+    </ul>
+  </nav>
 
   <!-- Main Content -->
   <main>
@@ -285,9 +305,9 @@
         });
       });
 
-      // Deteksi posisi scroll untuk indikator menu aktif pada Navbar
+      // Deteksi posisi scroll untuk indikator menu aktif pada Navbar Desktop & Mobile
       const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('.nav-item');
+      const navLinks = document.querySelectorAll('.nav-item, .mobile-nav-item');
 
       function updateActiveNav() {
         const headerEl = document.querySelector('.site-header');
@@ -338,6 +358,62 @@
           if (teamStrip) teamStrip.classList.remove('has-touch-active');
         }
       });
+
+      // Kontrol Burger Menu pada Layar Mobile (Drawer Layer Berada di Bawah Navbar)
+      const navToggle = document.getElementById('nav-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      const mobileBackdrop = document.getElementById('mobile-backdrop');
+
+      if (navToggle && mobileNav) {
+        function toggleNav() {
+          const isOpen = mobileNav.classList.contains('open');
+          if (isOpen) {
+            closeNav();
+          } else {
+            openNav();
+          }
+        }
+
+        function openNav() {
+          mobileNav.classList.add('open');
+          if (mobileBackdrop) mobileBackdrop.classList.add('open');
+          navToggle.setAttribute('aria-expanded', 'true');
+          navToggle.setAttribute('aria-label', 'Tutup Menu Navigasi');
+        }
+
+        function closeNav() {
+          mobileNav.classList.remove('open');
+          if (mobileBackdrop) mobileBackdrop.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.setAttribute('aria-label', 'Buka Menu Navigasi');
+        }
+
+        navToggle.addEventListener('click', function (e) {
+          e.stopPropagation();
+          toggleNav();
+        });
+
+        // Tutup menu otomatis saat salah satu link diklik
+        mobileNav.querySelectorAll('.mobile-nav-item').forEach(link => {
+          link.addEventListener('click', function () {
+            closeNav();
+          });
+        });
+
+        // Tutup menu jika pengguna mengetuk area backdrop di luar drawer
+        if (mobileBackdrop) {
+          mobileBackdrop.addEventListener('click', function () {
+            closeNav();
+          });
+        }
+
+        // Tutup menu jika tombol Escape ditekan
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            closeNav();
+          }
+        });
+      }
     });
   </script>
 </body>

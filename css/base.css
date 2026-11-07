@@ -390,6 +390,51 @@ main {
   flex-shrink: 0;
 }
 
+/* Tombol Hamburger (Khusus Mobile) */
+.nav-toggle {
+  display: none;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-toggle:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-strong);
+}
+
+.hamburger-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: var(--text-main);
+  border-radius: 2px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+/* Animasi silang (X) saat burger aktif */
+.nav-toggle[aria-expanded="true"] .hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 /* Tipografi Aksen Editorial Klasik (Pola 'together' italic serif gold) */
 .hero-accent-serif,
 .font-accent-serif {
@@ -401,7 +446,13 @@ main {
   text-transform: lowercase;
 }
 
-/* Navigasi Responsif Layar Kecil */
+/* Mobile Nav Drawer & Backdrop Default (Desktop: Tersembunyi) */
+.mobile-nav-drawer,
+.mobile-nav-backdrop {
+  display: none;
+}
+
+/* Navigasi Responsif Layar Kecil (Mobile Burger Menu) */
 @media (max-width: 768px) {
   :root {
     --header-height: 58px;
@@ -409,6 +460,7 @@ main {
 
   .site-header {
     height: var(--header-height);
+    z-index: 1000 !important; /* Navbar selalu di layer paling atas */
   }
 
   .header-container {
@@ -420,31 +472,109 @@ main {
     display: none;
   }
 
+  .nav-right-panel,
   .nav-main-container {
-    gap: 0.75rem;
+    gap: 0.6rem;
   }
 
-  .site-nav {
-    overflow-x: auto;
-    scrollbar-width: none;
+  /* Sembunyikan Menu Horizontal Desktop pada Layar Mobile */
+  .desktop-nav {
+    display: none !important;
   }
 
-  .site-nav::-webkit-scrollbar {
-    display: none;
+  /* Munculkan Tombol Hamburger di Mobile */
+  .nav-toggle {
+    display: flex;
   }
 
-  .nav-menu {
-    gap: 0.2rem;
+  /* Backdrop Hitam Transparan: Layer di bawah drawer (980) */
+  .mobile-nav-backdrop {
+    display: block;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 980;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
   }
 
-  .nav-item {
-    font-size: 0.8rem;
-    padding: 0.35rem 0.55rem;
+  .mobile-nav-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Drawer Menu Navigasi Mobile: LAYER DI BAWAH NAVBAR (z-index 990 vs navbar 1000) */
+  .mobile-nav-drawer {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(13, 17, 23, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-strong);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+    padding: 1rem 1.25rem 1.5rem;
+    z-index: 990; /* Tepat di bawah navbar fixed (z-index 1000) */
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  }
+
+  .mobile-nav-drawer.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-menu-mobile {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .mobile-nav-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .mobile-nav-item:hover,
+  .mobile-nav-item:focus {
+    background: var(--bg-tertiary);
+    color: var(--text-main);
+    border-color: var(--border-strong);
+  }
+
+  .mobile-nav-item.active {
+    background: var(--primary-subtle);
+    border-color: rgba(59, 130, 246, 0.35);
+    color: var(--primary);
   }
 
   .nav-btn-right .btn-sm {
-    padding: 0.3rem 0.65rem;
-    font-size: 0.78rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.8rem;
   }
 }
 
