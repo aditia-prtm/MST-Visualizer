@@ -17,11 +17,19 @@
 }
 
 /* Memastikan konten landing page berada di atas kanvas partikel */
-.site-header,
 main,
 .site-footer {
   position: relative;
   z-index: 1;
+}
+
+.site-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
 }
 
 /* Section Sizing: Min-Height 100vh (min-h-screen) & Smooth Centering */
@@ -31,7 +39,7 @@ main,
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  scroll-margin-top: 72px;
+  scroll-margin-top: calc(var(--header-height, 64px) + 16px);
 }
 
 .landing-hero {
@@ -42,7 +50,7 @@ main,
 }
 
 .landing-hero.min-h-screen {
-  min-height: calc(100vh - 65px);
+  min-height: calc(100vh - var(--header-height, 64px));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -271,9 +279,41 @@ main,
   margin-bottom: 0.5rem;
 }
 
-/* Strip 4 Kartu Berdempet (Contiguous Strip) */
+/* ==========================================================================
+   Section Anggota Kelompok
+   4 Card Berdempet dalam 1 Baris Penuh (Universal Single Row Accordion)
+   - Selalu 1 baris di seluruh device (desktop, tablet, mobile)
+   - Posisi vertikal normal anchored di top: 0 (bukan tengah)
+   - Efek hitam-putih -> Berwarna penuh saat di-hover/tap
+   ========================================================================== */
+
+.team-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  width: 100%;
+}
+
+.team-inner {
+  width: 100%;
+}
+
+.section-subtitle-tag {
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+/* Strip 4 Kartu Berdempet: MUTLAK 1 Baris Horizontal di Semua Device */
 .team-strip {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 100%;
+  height: 420px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
@@ -291,6 +331,18 @@ main,
   background: var(--bg-primary);
   cursor: pointer;
   outline: none;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: none !important;
+  transition: flex 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              opacity 0.3s ease;
+}
+
+.team-card:last-child {
+  border-right: none !important;
 }
 
 /* Frame Foto: Mengisi 100% tinggi penuh kartu dari atas sampai bawah */
@@ -299,12 +351,12 @@ main,
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* Height foto 100% full */
+  height: 100%;
   overflow: hidden;
   background: var(--bg-primary);
 }
 
-/* Foto: Awalnya 200% lebar (kiri ke tengah) & Efek Hitam-Putih (Tanpa Warna) */
+/* Foto: Sebelum hover anchored di top: 0 (object-position: left top) & Hitam Putih */
 .team-photo {
   position: absolute;
   top: 0;
@@ -313,13 +365,13 @@ main,
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: left center;
+  object-position: left top !important; /* Wajib top: 0 vertikal */
   display: block;
-  /* Efek tanpa warna (Hitam-Putih / Grayscale) sebelum di-hover */
   filter: grayscale(100%) contrast(1.1) brightness(0.85);
-  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.45s ease,
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.4s ease,
+              object-position 0.45s ease,
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Label Nomor Identitas Anggota */
@@ -331,7 +383,7 @@ main,
   font-weight: 700;
   font-family: var(--font-mono);
   color: var(--text-dim);
-  background: rgba(9, 12, 16, 0.78);
+  background: rgba(9, 12, 16, 0.85);
   border: 1px solid var(--border-subtle);
   padding: 0.2rem 0.5rem;
   border-radius: var(--radius-sm);
@@ -344,7 +396,7 @@ main,
   position: relative;
   z-index: 2;
   padding: 1.25rem 1.25rem 1.35rem;
-  background: linear-gradient(to top, rgba(9, 12, 16, 0.96) 0%, rgba(9, 12, 16, 0.82) 75%, transparent 100%);
+  background: linear-gradient(to top, rgba(9, 12, 16, 0.98) 0%, rgba(9, 12, 16, 0.85) 75%, transparent 100%);
   transform: translateY(100%);
   opacity: 0;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
@@ -357,6 +409,7 @@ main,
   color: var(--text-main);
   line-height: 1.3;
   margin-bottom: 0.45rem;
+  white-space: normal;
 }
 
 .team-meta-row {
@@ -367,7 +420,6 @@ main,
   flex-wrap: wrap;
 }
 
-/* NIM: Menggunakan font-mono secara terarah sesuai kaidah tipografi */
 .team-nim {
   font-family: var(--font-mono);
   font-size: 0.82rem;
@@ -386,106 +438,117 @@ main,
 }
 
 /* ==========================================================================
-   ANIMASI HOVER UNIVERSAL (FOTO & INFO)
+   INTERAKSI HOVER & ACTIVE (1 BARIS TETAP DI SELURUH RESOLUSI)
    ========================================================================== */
 
-/* Foto transisi: Tampil Penuh (100%) & Warna Normal Kembali (Grayscale 0%) */
+/* Kartu yang sedang aktif/di-hover melebar mulus */
+.team-card:hover,
+.team-card:focus-within,
+.team-card.touch-active {
+  flex: 2.8 !important;
+  z-index: 2;
+  box-shadow: 0 0 0 1px var(--primary), var(--shadow-lg);
+}
+
+/* Kartu lain yang tidak di-hover mengecil proporsional */
+.team-strip:hover .team-card:not(:hover):not(:focus-within):not(.touch-active),
+.team-strip.has-touch-active .team-card:not(.touch-active) {
+  flex: 0.55 !important;
+  opacity: 0.75;
+}
+
+/* Foto pada kartu aktif: Tampil Penuh, Berwarna Normal, dan Posisi Tengah Atas */
 .team-card:hover .team-photo,
-.team-card:focus-within .team-photo {
-  width: 100%; /* Tampil penuh secara horizontal */
-  filter: grayscale(0%) contrast(1) brightness(1); /* Warna normal kembali */
+.team-card:focus-within .team-photo,
+.team-card.touch-active .team-photo {
+  width: 100%;
+  filter: grayscale(0%) contrast(1) brightness(1);
+  object-position: center top !important;
   transform: scale(1.02);
 }
 
 .team-card:hover .team-peek-badge,
-.team-card:focus-within .team-peek-badge {
+.team-card:focus-within .team-peek-badge,
+.team-card.touch-active .team-peek-badge {
   color: var(--primary);
   border-color: var(--primary);
 }
 
-/* Informasi Nama & NIM meluncur ke atas */
+/* Info Nama & NIM muncul meluncur ke atas */
 .team-card:hover .team-info,
-.team-card:focus-within .team-info {
+.team-card:focus-within .team-info,
+.team-card.touch-active .team-info {
   transform: translateY(0);
   opacity: 1;
 }
 
-/* ==========================================================================
-   LAYOUT DESKTOP (> 768px): Accordion Horizontal
-   ========================================================================== */
-@media (min-width: 769px) {
+/* Penyesuaian Responsif Tablet & Mobile: TETAP 1 BARIS MUTLAK */
+@media (max-width: 768px) {
   .team-strip {
-    height: 400px;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    height: 360px;
   }
 
-  .team-card {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-    border-right: 1px solid var(--border-subtle);
-    border-bottom: none;
-    transition: flex 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.3s ease,
-                opacity 0.3s ease;
-  }
-
-  .team-card:last-child {
-    border-right: none;
-  }
-
-  /* Melebar dinamis hanya pada desktop */
   .team-card:hover,
-  .team-card:focus-within {
-    flex: 2.2;
-    z-index: 2;
-    box-shadow: 0 0 0 1px var(--primary), var(--shadow-lg);
+  .team-card:focus-within,
+  .team-card.touch-active {
+    flex: 3 !important;
   }
 
-  /* Kartu lain yang tidak di-hover mengecil proporsional */
-  .team-strip:hover .team-card:not(:hover):not(:focus-within) {
-    flex: 0.65;
-    opacity: 0.75;
+  .team-strip:hover .team-card:not(:hover):not(:focus-within):not(.touch-active),
+  .team-strip.has-touch-active .team-card:not(.touch-active) {
+    flex: 0.48 !important;
+  }
+
+  .team-info {
+    padding: 1rem 0.85rem;
+  }
+
+  .team-name {
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .team-nim {
+    font-size: 0.76rem;
+    padding: 0.1rem 0.4rem;
+  }
+
+  .team-role {
+    font-size: 0.72rem;
   }
 }
 
-/* ==========================================================================
-   LAYOUT MOBILE & TABLET (<= 768px): Stack Vertikal Stabil (1 Card 1 Baris)
-   ========================================================================== */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .team-strip {
-    height: auto;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    height: 320px;
   }
 
-  .team-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: none !important; /* Mencegah kartu saling membagi baris */
-    height: 310px;
-    border-right: none;
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .team-card:last-child {
-    border-bottom: none;
-  }
-
-  /* Saat di-hover di mobile: tetap 100% lebar penuh baris */
   .team-card:hover,
-  .team-card:focus-within {
-    width: 100% !important;
-    flex: none !important;
-    z-index: 2;
+  .team-card:focus-within,
+  .team-card.touch-active {
+    flex: 3.3 !important;
   }
 
-  /* Kartu lain yang tidak di-hover TETAP 100% (tidak pernah berbagi 1 baris) */
-  .team-strip:hover .team-card:not(:hover):not(:focus-within) {
-    width: 100% !important;
-    flex: none !important;
-    opacity: 1;
+  .team-strip:hover .team-card:not(:hover):not(:focus-within):not(.touch-active),
+  .team-strip.has-touch-active .team-card:not(.touch-active) {
+    flex: 0.42 !important;
+  }
+
+  .team-info {
+    padding: 0.75rem 0.65rem;
+  }
+
+  .team-name {
+    font-size: 0.86rem;
+  }
+
+  .team-nim {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.35rem;
+  }
+
+  .team-role {
+    display: none; /* Sembunyikan label role di layar sangat kecil agar NIM & Nama leluasa */
   }
 }
 

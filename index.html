@@ -27,17 +27,20 @@
         <span class="logo-badge">Struktur Diskrit</span>
       </a>
 
-      <nav class="site-nav" aria-label="Navigasi Halaman">
-        <ul class="nav-menu">
-          <li><a href="#hero" class="nav-item active">Beranda</a></li>
-          <li><a href="#tim" class="nav-item">Kelompok</a></li>
-          <li><a href="#konsep" class="nav-item">Konsep MST</a></li>
-          <li><a href="#algoritma" class="nav-item">Algoritma</a></li>
-        </ul>
-      </nav>
+      <!-- Panel Kanan: Menu Navigasi + Tombol Simulasi -->
+      <div class="nav-right-panel">
+        <nav class="site-nav" aria-label="Navigasi Halaman">
+          <ul class="nav-menu">
+            <li><a href="#hero" class="nav-item active">Beranda</a></li>
+            <li><a href="#tim" class="nav-item">Kelompok</a></li>
+            <li><a href="#konsep" class="nav-item">Konsep MST</a></li>
+            <li><a href="#algoritma" class="nav-item">Algoritma</a></li>
+          </ul>
+        </nav>
 
-      <div class="header-actions">
-        <a href="app.html" class="btn btn-primary btn-sm">Buka Simulasi</a>
+        <div class="nav-btn-right">
+          <a href="app.html" class="btn btn-primary btn-sm">Buka Simulasi</a>
+        </div>
       </div>
     </div>
   </header>
@@ -310,6 +313,32 @@
 
       window.addEventListener('scroll', updateActiveNav, { passive: true });
       updateActiveNav();
+
+      // Interaktivitas Tap / Click pada Card Anggota (khususnya sentuhan layar mobile)
+      const teamCards = document.querySelectorAll('.team-card');
+      const teamStrip = document.querySelector('.team-strip');
+
+      teamCards.forEach(card => {
+        card.addEventListener('click', function (e) {
+          const isAlreadyActive = card.classList.contains('touch-active');
+          teamCards.forEach(c => c.classList.remove('touch-active'));
+          
+          if (!isAlreadyActive) {
+            card.classList.add('touch-active');
+            if (teamStrip) teamStrip.classList.add('has-touch-active');
+          } else {
+            if (teamStrip) teamStrip.classList.remove('has-touch-active');
+          }
+        });
+      });
+
+      // Hilangkan status aktif jika pengguna mengetuk di luar area strip
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.team-strip')) {
+          teamCards.forEach(c => c.classList.remove('touch-active'));
+          if (teamStrip) teamStrip.classList.remove('has-touch-active');
+        }
+      });
     });
   </script>
 </body>
