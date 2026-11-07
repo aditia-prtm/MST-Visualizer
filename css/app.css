@@ -8,8 +8,8 @@
 /* Container Utama */
 .app-container {
   max-width: 1280px;
-  margin: 1.5rem auto 3rem;
-  padding: 0 1.5rem;
+  margin: 0 auto 3rem;
+  padding: calc(var(--header-height, 64px) + 1.5rem) 1.5rem 0;
   width: 100%;
 }
 
@@ -628,7 +628,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
-  z-index: 1000;
+  z-index: 2000;
   align-items: center;
   justify-content: center;
 }
@@ -713,8 +713,8 @@
 
 @media (max-width: 640px) {
   .app-container {
-    padding: 0 0.75rem;
-    margin: 0.85rem auto 2rem;
+    padding: calc(var(--header-height, 58px) + 1rem) 0.75rem 0;
+    margin: 0 auto 2rem;
   }
 
   .stepper-nav {
