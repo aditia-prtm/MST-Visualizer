@@ -76,9 +76,11 @@ a {
   cursor: pointer;
 }
 
-a:hover {
+a:hover,
+a:focus,
+a:active {
   color: #60a5fa;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* Tipografi */

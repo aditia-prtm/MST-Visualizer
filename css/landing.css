@@ -242,7 +242,6 @@ main,
 /* Strip 4 Kartu Berdempet (Contiguous Strip) */
 .team-strip {
   display: flex;
-  height: 400px; /* Height tetap kokoh & full */
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
@@ -252,25 +251,14 @@ main,
 }
 
 .team-card {
-  flex: 1;
-  min-width: 0;
-  height: 100%; /* Height kartu tetap full */
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   background: var(--bg-primary);
-  border-right: 1px solid var(--border-subtle);
-  transition: flex 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s ease,
-              opacity 0.3s ease;
   cursor: pointer;
   outline: none;
-}
-
-.team-card:last-child {
-  border-right: none;
 }
 
 /* Frame Foto: Mengisi 100% tinggi penuh kartu dari atas sampai bawah */
@@ -366,22 +354,8 @@ main,
 }
 
 /* ==========================================================================
-   ANIMASI HOVER: Tampil Penuh Secara Horizontal + Warna Normal Kembali
+   ANIMASI HOVER UNIVERSAL (FOTO & INFO)
    ========================================================================== */
-
-/* Kartu yang di-hover melebar secara dinamis */
-.team-card:hover,
-.team-card:focus-within {
-  flex: 2.2;
-  z-index: 2;
-  box-shadow: 0 0 0 1px var(--primary), var(--shadow-lg);
-}
-
-/* Kartu lain yang tidak di-hover mengecil proporsional */
-.team-strip:hover .team-card:not(:hover):not(:focus-within) {
-  flex: 0.65;
-  opacity: 0.75;
-}
 
 /* Foto transisi: Tampil Penuh (100%) & Warna Normal Kembali (Grayscale 0%) */
 .team-card:hover .team-photo,
@@ -404,33 +378,86 @@ main,
   opacity: 1;
 }
 
-/* Responsivitas Layar */
-@media (max-width: 860px) {
+/* ==========================================================================
+   LAYOUT DESKTOP (> 768px): Accordion Horizontal
+   ========================================================================== */
+@media (min-width: 769px) {
   .team-strip {
-    height: auto;
-    flex-wrap: wrap;
+    height: 400px;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
+
   .team-card {
-    flex: 1 1 50%;
-    height: 320px;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border-right: 1px solid var(--border-subtle);
+    border-bottom: none;
+    transition: flex 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s ease,
+                opacity 0.3s ease;
   }
-  .team-card:nth-child(2) {
+
+  .team-card:last-child {
     border-right: none;
   }
-  .team-card:nth-child(1),
-  .team-card:nth-child(2) {
-    border-bottom: 1px solid var(--border-subtle);
-  }
-  .team-strip:hover .team-card:not(:hover):not(:focus-within) {
-    flex: 1 1 50%;
-    opacity: 1;
-  }
+
+  /* Melebar dinamis hanya pada desktop */
   .team-card:hover,
   .team-card:focus-within {
-    flex: 1 1 50%;
+    flex: 2.2;
+    z-index: 2;
+    box-shadow: 0 0 0 1px var(--primary), var(--shadow-lg);
+  }
+
+  /* Kartu lain yang tidak di-hover mengecil proporsional */
+  .team-strip:hover .team-card:not(:hover):not(:focus-within) {
+    flex: 0.65;
+    opacity: 0.75;
   }
 }
 
+/* ==========================================================================
+   LAYOUT MOBILE & TABLET (<= 768px): Stack Vertikal Stabil (1 Card 1 Baris)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .team-strip {
+    height: auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .team-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important; /* Mencegah kartu saling membagi baris */
+    height: 310px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .team-card:last-child {
+    border-bottom: none;
+  }
+
+  /* Saat di-hover di mobile: tetap 100% lebar penuh baris */
+  .team-card:hover,
+  .team-card:focus-within {
+    width: 100% !important;
+    flex: none !important;
+    z-index: 2;
+  }
+
+  /* Kartu lain yang tidak di-hover TETAP 100% (tidak pernah berbagi 1 baris) */
+  .team-strip:hover .team-card:not(:hover):not(:focus-within) {
+    width: 100% !important;
+    flex: none !important;
+    opacity: 1;
+  }
+}
+
+/* Responsivitas Elemen Lainnya */
 @media (max-width: 640px) {
   .landing-hero {
     padding: 3rem 1rem 2rem;
@@ -464,20 +491,5 @@ main,
   .meta-box {
     flex-direction: column;
     gap: 0.35rem;
-  }
-}
-
-@media (max-width: 520px) {
-  .team-card {
-    flex: 1 1 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border-subtle);
-  }
-  .team-card:last-child {
-    border-bottom: none;
-  }
-  .team-card:hover,
-  .team-card:focus-within {
-    flex: 1 1 100%;
   }
 }
