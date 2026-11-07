@@ -435,6 +435,16 @@ main {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Tipografi Aksen Kata Terakhir Judul Section (Serif Italic Biru Primer CTA) */
+.title-accent-word,
+.title-accent-serif {
+  font-family: var(--font-serif-accent);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.01em;
+}
+
 /* Tipografi Aksen Editorial Klasik (Pola 'together' italic serif gold) */
 .hero-accent-serif,
 .font-accent-serif {
