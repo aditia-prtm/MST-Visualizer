@@ -52,6 +52,10 @@
   --transition-normal: 0.2s ease;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -275,10 +279,12 @@ p {
   }
 }
 
-/* Header & Footer */
+/* Header & Navbar */
 .site-header {
   border-bottom: 1px solid var(--border-subtle);
-  background: var(--bg-primary);
+  background: rgba(9, 12, 16, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -291,6 +297,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1.25rem;
 }
 
 .logo {
@@ -301,6 +308,7 @@ p {
   font-size: 1.15rem;
   color: var(--text-main);
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logo-badge {
@@ -311,6 +319,83 @@ p {
   padding: 0.15rem 0.45rem;
   border-radius: var(--radius-sm);
   font-weight: 600;
+}
+
+/* Navigasi Utama */
+.site-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  color: var(--text-main);
+  background-color: var(--bg-tertiary);
+}
+
+.nav-item.active {
+  color: var(--primary);
+  background-color: var(--primary-subtle);
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Navigasi Responsif Layar Kecil */
+@media (max-width: 768px) {
+  .header-container {
+    flex-wrap: wrap;
+    padding: 0.65rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .logo-badge {
+    display: none;
+  }
+
+  .site-nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--border-subtle);
+    scrollbar-width: none;
+  }
+
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-menu {
+    gap: 0.25rem;
+  }
+
+  .nav-item {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.65rem;
+  }
 }
 
 .site-footer {
